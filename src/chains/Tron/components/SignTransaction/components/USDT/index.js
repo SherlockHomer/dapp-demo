@@ -124,11 +124,64 @@ function USDT({ account }) {
       setTransferFromLoading(false);
     }
   };
+  const sendTrx = async () => {
+    const tx = await tronWeb.transactionBuilder.sendTrx('TPD61r5LWQCRNddb9jMo6E7Gnequ8kcuBx', 1, account);
+    try {
+      const res = await tronWeb.trx.sign(tx);
+      console.log('res', res);
+    } catch (error) {
+      console.log('error.code', error.code);
+    }
+  };
+  const sendRawTrx = async () => {
+    const tx = await tronWeb.transactionBuilder.sendTrx('TPD61r5LWQCRNddb9jMo6E7Gnequ8kcuBx', 1, account);
+    try {
+      const res = await tronWeb.trx.sign(tx);
+      const rec = await tronWeb.trx.sendRawTransaction(res);
+      console.log('signedTx', res);
+      console.log('tx result', rec);
+    } catch (error) {
+      console.log('error.code', error.code);
+    }
+  };
+  const signAndSendTx = async () => {
+    const tx = await tronWeb.transactionBuilder.sendTrx('TPD61r5LWQCRNddb9jMo6E7Gnequ8kcuBx', 1, account);
+    try {
+      const rec = await window.tron.signAndSendTransaction(tx);
 
+      console.log('tx result', rec);
+    } catch (error) {
+      console.log('error.code', error.code);
+    }
+  };
   return (
     <Col xs={24} lg={12}>
       <Card direction="vertical" title="USDT">
         <Space direction="vertical" style={{ width: '100%' }}>
+          <Button
+            block
+            disabled={!account}
+            loading={increaseApprovalLoading}
+            onClick={sendTrx}
+          >
+            signTransaction
+          </Button>
+          <Button
+            block
+            disabled={!account}
+            loading={increaseApprovalLoading}
+            onClick={sendRawTrx}
+          >
+            sendRawTransaction
+          </Button>
+          <Button
+            block
+            disabled={!account}
+            loading={increaseApprovalLoading}
+            onClick={signAndSendTx}
+          >
+            signAndSendTransaction
+          </Button>
           <Button
             block
             disabled={!account}

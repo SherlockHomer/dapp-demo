@@ -8,7 +8,7 @@ export default function Connect({
   handleConnect,
   account,
   children,
-  handleDisconnect = () => message.error('not supported ~'),
+  handleDisconnect = () => { },
 }) {
   return (
     <Card title="Connect status">

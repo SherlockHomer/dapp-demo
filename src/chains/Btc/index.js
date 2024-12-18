@@ -25,22 +25,22 @@ function Btc() {
   const { chain, getNetwork } = useNetwork(provider);
 
   useEffect(() => {
-    if (!window?.okxWallet?.bitcoin && !window?.okxWallet?.fractalbitcoin) {
+    if (!window?.okxwallet?.bitcoin && !window?.okxwallet?.fractalbitcoin) {
       return;
     }
     const init = async () => {
-      if (window.okxWallet?.bitcoin) {
-        setProvider(window.okxWallet.bitcoin); // set window.okxWallet.bitcoin as provider
+      if (window.okxwallet?.bitcoin) {
+        setProvider(window.okxwallet.bitcoin); // set window.okxwallet.bitcoin as provider
       }
-      if (window.okxWallet?.fractalbitcoin) {
-        setFractalProvider(window.okxWallet.fractalbitcoin); // set window.okxWallet.fractalbitcoin as fractalProvider
+      if (window.okxwallet?.fractalBitcoin) {
+        setFractalProvider(window.okxwallet.fractalBitcoin); // set window.okxwallet.fractalBitcoin as fractalProvider
       }
     };
 
     init();
   }, []);
 
-  if (!window?.okxWallet?.bitcoin) {
+  if (!window?.okxwallet?.bitcoin) {
     return <DontHaveWallet chain={key} />;
   }
 

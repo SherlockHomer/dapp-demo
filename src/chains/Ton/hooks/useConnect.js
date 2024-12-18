@@ -24,9 +24,6 @@ export default () => {
       } else {
         console.log(result.payload.message);
       }
-      console.log(result);
-      const { address } = await window.ton.connect();
-      setAccount(address);
     } catch (error) {
       message.error(error.message);
     }

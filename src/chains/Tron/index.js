@@ -10,13 +10,16 @@ import BlackAddress from '../../components/BlackAddress';
 import Others from './components/Others';
 import { grayTronAddress, tronStrongBlackEoaAddress } from './const';
 
+const key = 'Tron';
 function Tron() {
   const { account, handleConnect } = useConnect();
-
+  if (!window.tronLink) {
+    <DontHaveWallet chain={key} />;
+  }
   return (
     <Space direction="vertical" style={{ width: '100%' }}>
       <Account account={account} />
-      <Connect handleConnect={handleConnect} account={account} />
+      <Connect handleConnect={handleConnect} account={account} handleDisconnect={() => { window.tron.disconnect(); }} />
       <SignMessage account={account} />
       <SignTransaction account={account} />
       <Others account={account} />
@@ -27,8 +30,7 @@ function Tron() {
   );
 }
 
-const key = 'Tron';
 export default {
   key,
-  children: window.tronLink ? <Tron /> : <DontHaveWallet chain={key} />,
+  children: <Tron />,
 };

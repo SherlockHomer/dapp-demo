@@ -17,6 +17,7 @@ function Send({
     setSending(true);
     try {
       let txHash = null;
+      console.log('btc -handleSend: ', JSON.stringify(params));
       if (chainId === 'btc:mainnet') {
         txHash = await provider.send({
           from, to, value, satBytes, memo, memoPos,
@@ -29,7 +30,7 @@ function Send({
       console.log('handleSend: ', txHash);
       toastSuccess();
     } catch (err) {
-      console.log('handleSend error: ', err);
+      console.log('handleSend error: ', err, err.code);
       if (err.code === ConnectKitErrorCodes.USER_REJECTS_ERROR) {
         message.error('User rejected the request');
       } else {
@@ -49,6 +50,7 @@ function Send({
         options.feeRate = feeRate;
       }
       let txHash = null;
+      console.log('btc - handleSendBitcoin: ', to, amount, options);
       if (chainId === 'btc:mainnet') {
         txHash = await provider.sendBitcoin(to, amount, options);
       } else {
@@ -76,6 +78,10 @@ function Send({
     setSending(true);
     try {
       let txHash = null;
+      console.log(
+        'btc - handleSendInscription: ',
+        JSON.stringify(params),
+      );
       if (chainId === 'btc:mainnet') {
         txHash = await provider.sendInscription(to, inscriptionId, options);
       } else {
@@ -101,8 +107,8 @@ function Send({
         <Button
           block
           onClick={() => handleSend('btc:mainnet', {
-            from: account.address,
-            to: account.address,
+            from: account,
+            to: account,
             value: '0.000001',
           })}
           disabled={disabled}
@@ -113,8 +119,8 @@ function Send({
         <Button
           block
           onClick={() => handleSend('fractal:mainnet', {
-            from: account.address,
-            to: account.address,
+            from: account,
+            to: account,
             value: '0.000001',
           })}
           disabled={disabled}

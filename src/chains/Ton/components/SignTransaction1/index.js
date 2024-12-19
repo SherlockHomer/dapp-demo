@@ -38,7 +38,7 @@ function SignTransaction({ address }) {
         },
       ],
     };
-    const res = await ton.send(
+    const res = await window.ton.send(
       {
         method: 'sendTransaction',
         params: [myTransaction],
@@ -49,7 +49,7 @@ function SignTransaction({ address }) {
   };
 
   const sendTon = (toAddress = myTonAddress) => async () => {
-    const res = await ton.send({
+    const res = await window.ton.send({
       method: 'sendTransaction',
       params: [{
         validUntil,

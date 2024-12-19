@@ -9,7 +9,7 @@ import { toastSuccess } from '../../../utils/toast';
 function Psbt({ provider, fractalProvider, disabled }) {
   const [signing, setSigning] = useState(false);
   const [psbtHexArr, setPsbtHexArr] = useState([]);
-  const [fractakPsbtHexArr, setFractalPsbtHexArr] = useState([]);
+  const [fractalPsbtHexArr, setFractalPsbtHexArr] = useState([]);
   const [inputVal, setInputVal] = useState('');
   const [fractalInputVal, setFractalInputVal] = useState('');
   const [signedTx, setSignedTx] = useState('');
@@ -20,7 +20,7 @@ function Psbt({ provider, fractalProvider, disabled }) {
       setPsbtHexArr([...psbtHexArr, inputVal]);
       setInputVal('');
     } else {
-      setFractalPsbtHexArr([...fractakPsbtHexArr, fractalInputVal]);
+      setFractalPsbtHexArr([...fractalPsbtHexArr, fractalInputVal]);
       setFractalInputVal('');
     }
   };
@@ -36,7 +36,7 @@ function Psbt({ provider, fractalProvider, disabled }) {
         hexStr = await provider.signPsbt(psbtHexArr[0], options);
         setSignedTx(hexStr);
       } else {
-        hexStr = await fractalProvider.signPsbt(fractakPsbtHexArr[0], options);
+        hexStr = await fractalProvider.signPsbt(fractalPsbtHexArr[0], options);
         setFractalSignedTx(hexStr);
       }
       console.log('handleSignPsbt: ', hexStr);
@@ -63,8 +63,8 @@ function Psbt({ provider, fractalProvider, disabled }) {
         })));
       } else {
         hexStr = await fractalProvider.signPsbts(
-          fractakPsbtHexArr,
-          fractakPsbtHexArr.map(() => ({
+          fractalPsbtHexArr,
+          fractalPsbtHexArr.map(() => ({
             autoFinalized: true,
           })),
         );
@@ -116,8 +116,8 @@ function Psbt({ provider, fractalProvider, disabled }) {
       <Card title="Psbt(btc:mainnet)">
         <Space direction="vertical" style={{ width: '100%' }}>
           <div>
-            {psbtHexArr.map((val, idx) => (
-              <TextArea key={idx} value={val} disabled />
+            {psbtHexArr.map((val) => (
+              <TextArea key={`btc-${val.substr(0, 16)}`} value={val} disabled />
             ))}
           </div>
           <Input
@@ -174,8 +174,8 @@ function Psbt({ provider, fractalProvider, disabled }) {
       <Card title="Psbt(fractal:mainnet)">
         <Space direction="vertical" style={{ width: '100%' }}>
           <div>
-            {fractakPsbtHexArr.map((val, idx) => (
-              <TextArea key={`fractal-psbtHex-${idx}`} value={val} disabled />
+            {fractalPsbtHexArr.map((val) => (
+              <TextArea key={`fractal-${val.substr(0, 16)}`} value={val} disabled />
             ))}
           </div>
           <Input
@@ -192,7 +192,7 @@ function Psbt({ provider, fractalProvider, disabled }) {
           <Button
             block
             onClick={() => handleSignPsbt('fractal:mainnet')}
-            disabled={disabled || fractakPsbtHexArr.length === 0}
+            disabled={disabled || fractalPsbtHexArr.length === 0}
             loading={signing}
           >
             sign psbt(fractal:mainnet)
@@ -201,7 +201,7 @@ function Psbt({ provider, fractalProvider, disabled }) {
           <Button
             block
             onClick={() => handleSignPsbts('fractal:mainnet')}
-            disabled={disabled || fractakPsbtHexArr.length === 0}
+            disabled={disabled || fractalPsbtHexArr.length === 0}
             loading={signing}
           >
             sign psbts(fractal:mainnet)

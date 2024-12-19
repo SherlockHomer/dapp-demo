@@ -147,7 +147,7 @@ function USDT({ account }) {
   const signAndSendTx = async () => {
     const tx = await tronWeb.transactionBuilder.sendTrx('TPD61r5LWQCRNddb9jMo6E7Gnequ8kcuBx', 1, account);
     try {
-      const rec = await window.tron.signAndSendTransaction(tx);
+      const rec = await window.tronWeb.signAndSendTransaction(tx);
 
       console.log('tx result', rec);
     } catch (error) {

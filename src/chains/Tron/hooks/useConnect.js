@@ -27,18 +27,18 @@ export default () => {
         console.log('postEvent connect event');
       }
     });
-    window.tron.on('accountsChanged', (addr) => {
+    window.tronWeb.on('accountsChanged', (addr) => {
       console.log('accountsChanged event -> addr', addr);
     });
-    window.tron.on('connect', (addr) => {
+    window.tronWeb.on('connect', (addr) => {
       console.log('connect event -> addr', addr);
     });
-    window.tron.on('disconnect', () => {
+    window.tronWeb.on('disconnect', () => {
       setAccount('');
       console.log('disconnect event');
     });
 
-    window.tron.on('chainChanged', (chain) => {
+    window.tronWeb.on('chainChanged', (chain) => {
       console.log('chainChanged -> chain', chain);
     });
   }, []);

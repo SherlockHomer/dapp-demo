@@ -19,7 +19,7 @@ function Tron() {
   return (
     <Space direction="vertical" style={{ width: '100%' }}>
       <Account account={account} />
-      <Connect handleConnect={handleConnect} account={account} handleDisconnect={() => { window.tron.disconnect(); }} />
+      <Connect handleConnect={handleConnect} account={account} handleDisconnect={() => { window.tronWeb.disconnect(); }} />
       <SignMessage account={account} />
       <SignTransaction account={account} />
       <Others account={account} />

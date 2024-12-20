@@ -68,11 +68,11 @@ function Connect() {
       setConnecting(true);
       console.log('session_connecting');
     });
-    sdk.once('connect', async () => {
+    sdk.once('connect', async (session) => {
       setConnecting(false);
-      console.log('sdk connect and remove listener');
-      const allAddresses = await getAllAddresses();
-      console.log('SDK connected - allAddresses: ', allAddresses);
+      console.log('sdk connect and remove listener: ', session);
+      // const allAddresses = await getAllAddresses();
+      // console.log('SDK connected - allAddresses: ', allAddresses);
     });
     sdk.once('connect_error', () => {
       setConnecting(false);
@@ -86,10 +86,13 @@ function Connect() {
 
   const handleConnectMobileApp = async () => {
     try {
-      const session = await connectOKXAppWallet();
-      console.log('mobile app connected - session: ', session);
-      const allAddresses = await getAllAddresses();
-      console.log('mobile app connected - allAddresses: ', allAddresses);
+      const sdk = getConnectKit();
+      await connectOKXAppWallet();
+      sdk.once('connect', (session) => {
+        console.log('mobile app connected - session: ', session);
+      });
+      // const allAddresses = await getAllAddresses();
+      // console.log('mobile app connected - allAddresses: ', allAddresses);
     } catch (err) {
       console.log('connect mobile app error: ', err);
       if (err.code === ConnectKitErrorCodes.USER_REJECTS_ERROR) {
@@ -102,10 +105,13 @@ function Connect() {
 
   const handleConnectMiniWallet = async () => {
     try {
-      const session = await connectOKXMiniWallet();
-      console.log('mini wallet connected - session: ', session);
-      const allAddresses = await getAllAddresses();
-      console.log('mini wallet connected - allAddresses: ', allAddresses);
+      const sdk = getConnectKit();
+      await connectOKXMiniWallet();
+      sdk.once('connect', (session) => {
+        console.log('mini wallet connected - session: ', session);
+      });
+      // const allAddresses = await getAllAddresses();
+      // console.log('mini wallet connected - allAddresses: ', allAddresses);
     } catch (err) {
       console.log('connect mini wallet error: ', err);
       if (err.code === ConnectKitErrorCodes.USER_REJECTS_ERROR) {

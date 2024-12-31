@@ -180,7 +180,7 @@ function Connect() {
       <Button onClick={connect}>Connect</Button>
       <Button onClick={disconnect}>Disconnect</Button>
       <Button onClick={getAllAddresses}>Get all addresses</Button>
-      <div>Local Test</div>
+      <div>Local Test haha</div>
     </Space>
   );
 }

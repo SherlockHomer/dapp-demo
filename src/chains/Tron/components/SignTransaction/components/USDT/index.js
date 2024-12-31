@@ -129,6 +129,7 @@ function USDT({ account }) {
     try {
       const res = await tronWeb.trx.sign(tx);
       console.log('res', res);
+      console.log('json - res: ', JSON.stringify(res));
     } catch (error) {
       console.log('error.code', error.code);
     }
